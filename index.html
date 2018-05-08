@@ -58,15 +58,14 @@ function hndlr(response) {
 	document.getElementById("content-bio").innerHTML = "";
 	console.log(response)
 	for (var i = 0; i < response.items.length; i++) {	
-			var item = response.items[i];
-			document.getElementById("content").innerHTML += "<br>" + item.htmlTitle;
-		}
-	for (var i = 0; i < 3; i ++) {
-			var item = response.items[i];
-			document.getElementById("content-bio").innerHTML += "<br>" + item.htmlSnippet; 
-
-		}
+        var item = response.items[i];
+        document.getElementById("content").innerHTML += "<br>" + item.htmlTitle;
 	}
+	for (var i = 0; i < 3; i ++) {
+        var item = response.items[i];
+        document.getElementById("content-bio").innerHTML += "<br>" + item.htmlSnippet; 
+	}
+}
 </script>
 <body>
     <div class="page-wrap">
@@ -114,7 +113,7 @@ function hndlr(response) {
     <footer class="site-footer">
         <p>
             <em>
-                <a>Built using tensorflowjs and Model trained on Keras</a>. 
+                <a>Built using tensorflow.js and Model trained on Keras</a>. 
             </em>
         </p>
     </footer>

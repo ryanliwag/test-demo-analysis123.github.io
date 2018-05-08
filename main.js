@@ -1,13 +1,7 @@
 import * as tf from '@tensorflow/tfjs';
 
-/**
- * Main application to start on window load
- */
 class Main {
-  /**
-   * Constructor creates and initializes the variables needed for
-   * the application
-   */
+
   constructor() {
     // Initialize buttons
     this.newDigit = document.getElementById('predict-image');
@@ -22,10 +16,6 @@ class Main {
     });
   }
 
-  /**
-   * Called after model has finished loading or generating. 
-   * Sets up UI elements.
-   */
   initialize_random_image() {
     let randInt = Math.floor(Math.random() * 6) + 1;
     console.log(randInt)
@@ -43,7 +33,6 @@ class Main {
   runmodel() {
     const limit = tf.tensor1d([0.5]);
     const prediction = this.model.predict(this.inputTensor.expandDims()).greaterEqual(limit);
-
     var obj = JSON.parse('{ "0":"Coco Martin", "1":"Piolo Pascual"}');
 
     const predictions = Array.from(prediction.dataSync());
@@ -54,10 +43,10 @@ class Main {
 
 
   updateInputTensor() {
-    // TODO: Don't load this in immediately. Add it with noise.
     let temp = new Image();
     var youtubeimgsrc = document.getElementById("blah").src
     temp.src = youtubeimgsrc;
+    //resize the image
     temp.width = 160
     temp.height = 160
     temp.onload = () => {
@@ -71,9 +60,6 @@ class Main {
       this.runmodel();
     }
   }
-
-
-
 }
 
 window.addEventListener('load', () => new Main());
