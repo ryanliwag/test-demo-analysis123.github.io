@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Denoising Autoencoder with TensorFlow.js</title>
+    <script src="dist/bundle.js"></script>
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+    <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+    <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
+	<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<meta charset=utf-8 />
+</head>
+<style>
+.flip {
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+html, body {
+    height: 100%;
+}
+.page-wrap {
+    min-height: 100%;
+    /* equal to footer height */
+    margin-bottom: -60px; 
+}
+.page-wrap:after {
+    content: "";
+    display: block;
+}
+.site-footer, .page-wrap:after {
+    padding-top: 10px;
+    height: 50px; 
+}
+.site-footer {
+    background: #efefef;
+    text-align: center;
+}
+</style>
+
+<script>
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#blah')
+                .attr('src', e.target.result)
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+function hndlr(response) {
+	document.getElementById("content").innerHTML = "";
+	document.getElementById("content-bio").innerHTML = "";
+	console.log(response)
+	for (var i = 0; i < response.items.length; i++) {	
+			var item = response.items[i];
+			document.getElementById("content").innerHTML += "<br>" + item.htmlTitle;
+		}
+	for (var i = 0; i < 3; i ++) {
+			var item = response.items[i];
+			document.getElementById("content-bio").innerHTML += "<br>" + item.htmlSnippet; 
+
+		}
+	}
+</script>
+<body>
+    <div class="page-wrap">
+        <div class="container">
+            <div class="row" style="display: inline-block; padding-top: 50px">
+                <h3 class="title" style="text-align: center">Analytics: Image Analysis Demo</h3>
+                
+            </div>
+            <div class="row">
+            	<div class="column" style="display:flex;justify-content:center;align-items:center;">
+            		<label class="field-label" for="photo"><a class="button">Upload Photo</a></label>
+            		<input type='file' style="display:none;"  id="photo" value="photo" onchange="readURL(this);"/>  
+            	</div>
+            </div>
+            </div>
+            <div class="row">
+                <div class="column" style="display:flex;justify-content:center;align-items:center;">
+                    <figure style="align-items: center">
+                        <img id="blah" src="#" alt="your image" />
+                        <figcaption>Original Image</figcaption>
+                    </figure>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column column-offset-45" style="display:flex;justify-content:center;align-items:center;">
+                    <button id="random-image">Random</button>
+                    &nbsp;
+                    <button id="predict-image">Classify</button>
+                </div>
+            </div>
+            <div class="row">
+            	<div class="column" style="display:flex;justify-content:center;align-items:center;">
+            	<a>Result: </a> <a id="demo"></a>
+            	</div>
+       		</div>
+       		<div class="row">
+            	<div class="column" style="display:flex;justify-content:center;align-items:center;">
+            	<div id="content"></div>
+            	</div>
+            	<div class="column" style="display:flex;justify-content:center;align-items:center;">
+            	<div id="content-bio"></div>
+            	</div>
+       		</div>
+    </div>
+    <footer class="site-footer">
+        <p>
+            <em>
+                <a>Built using tensorflowjs and Model trained on Keras</a>. 
+            </em>
+        </p>
+    </footer>
+</body>
+</html>
