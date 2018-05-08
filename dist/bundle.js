@@ -24,8 +24,6 @@ var Main = function () {
 
     _classCallCheck(this, Main);
 
-    // Initialize random image
-    this.initialize_random_image();
     // Initialize buttons
     this.newDigit = document.getElementById('predict-image');
     this.newDigit.onclick = function () {
@@ -38,6 +36,8 @@ var Main = function () {
 
     tf.loadModel('model2/model.json').then(function (model) {
       _this.model = model;
+      document.getElementById("ready-trigger").innerHTML = "Model is Ready :)";
+      _this.initialize_random_image();
     });
   }
 

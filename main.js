@@ -9,8 +9,6 @@ class Main {
    * the application
    */
   constructor() {
-    // Initialize random image
-    this.initialize_random_image();
     // Initialize buttons
     this.newDigit = document.getElementById('predict-image');
     this.newDigit.onclick = () => this.updateInputTensor();
@@ -19,6 +17,8 @@ class Main {
 
     tf.loadModel('model2/model.json').then((model) => {
       this.model = model;
+      document.getElementById("ready-trigger").innerHTML = "Model is Ready :)"
+      this.initialize_random_image();
     });
   }
 
