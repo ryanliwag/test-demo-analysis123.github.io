@@ -11,20 +11,21 @@ class Main {
 
     tf.loadModel('model2/model.json').then((model) => {
       this.model = model;
+      
       document.getElementById("ready-trigger").innerHTML = "Model is Ready :)"
-      this.initialize_random_image();
+      this.random_image();
     });
   }
 
-  initialize_random_image() {
+  random_image() {
     let randInt = Math.floor(Math.random() * 6) + 1;
     console.log(randInt)
     let temp_image = new Image();
     temp_image.src = "data/" + randInt + ".jpeg";
-    document.getElementById("blah").src = temp_image.src;
+    document.getElementById("img").src = temp_image.src;
   }
 
-  triggersearch(query) {
+  trigger_search(query) {
          var JSElement = document.createElement('script');
          JSElement.src = 'https://www.googleapis.com/customsearch/v1?key=AIzaSyCUwXHx7yvicNW3tAI-NAu47cKjN_4LFZ8&cx=001792966700025164735:8xnzg1hpiuc&q='+query+'&callback=hndlr';
          document.getElementsByTagName('body')[0].appendChild(JSElement);
@@ -37,14 +38,13 @@ class Main {
 
     const predictions = Array.from(prediction.dataSync());
     console.log(obj[predictions])
-    document.getElementById("demo").innerHTML = obj[predictions]
-    this.triggersearch(obj[predictions])
+    document.getElementById("result").innerHTML = obj[predictions]
+    this.trigger_search(obj[predictions])
   }
-
 
   updateInputTensor() {
     let temp = new Image();
-    var youtubeimgsrc = document.getElementById("blah").src
+    var youtubeimgsrc = document.getElementById("img").src
     temp.src = youtubeimgsrc;
     //resize the image
     temp.width = 160
@@ -56,7 +56,6 @@ class Main {
       this.inputTensor = tf.tidy(() =>
         tf.fromPixels(temp).toFloat().div(tf.scalar(255))
       );
-      //tf.toPixels(this.inputTensor, this.originalImg);
       this.runmodel();
     }
   }
